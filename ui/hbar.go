@@ -32,6 +32,19 @@ func (v *HBar) _render() {
 		Foreground(tcell.ColorWhite).
 		Background(tcell.ColorBlue)
 
-	scr.DrawText(v.scr, v.X, v.Y, v.Text, style)
-	scr.Fill(v.scr, v.X+len(v.Text), v.Y, v.W-len(v.Text), ' ', style)
+	lOffset := (v.W - len(v.Text)) / 2
+	if lOffset < 0 {
+		lOffset = 0
+	}
+	
+	// fill left side of text
+	scr.Fill(v.scr, v.X, v.Y, lOffset, ' ', style)
+
+	// draw text
+	scr.DrawText(v.scr, v.X + lOffset, v.Y, v.Text, style)
+
+	// fill right side of text
+	scr.Fill(v.scr,
+		lOffset +len(v.Text), v.Y, v.W-len(v.Text),
+		' ', style)
 }

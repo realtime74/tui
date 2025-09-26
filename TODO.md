@@ -22,7 +22,7 @@
 
 - [x] create class "vbar" in `tools/ui`
 - [x] create a header bar at the top of the screen
-- [ ] display the title "My TUI App" in the header bar
-- [ ] let header text be centered
+- [x] display the title "My TUI App" in the header bar
+- [x] let header text be centered
 
 # footer bar
