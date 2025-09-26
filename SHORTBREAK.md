@@ -1,5 +1,5 @@
 # SHORT BREAK
 
-- Be right back in
+- I'll be back
 
-    <1 minute(s)
+    at ~16:00 CET

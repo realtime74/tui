@@ -1,6 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"time"
+
+	"log/slog"
+
 	"github.com/gdamore/tcell/v2"
 	"github.com/realtime74/tui/tools/scr"
 	"github.com/realtime74/tui/ui"
@@ -22,12 +28,29 @@ func _up() {
 	bar.Up()
 }
 
+var _messages = make(chan tcell.Event, 10)
+
+func _poll(s1 tcell.Screen) tcell.Event {
+	select {
+	case ev := <-_messages:
+		return ev
+	}
+}
+
 func _loop(s1 tcell.Screen) bool {
 	s1.Show()
-	ev := s1.PollEvent()
+	ev := _poll(s1)
 	switch ev := ev.(type) {
+	case TimerEvent:
+		scr.DrawText(s1, 0, 0,
+			fmt.Sprintf("Tick: %d", ev.Cycle),
+			tcell.StyleDefault)
+		ball := _model["ball"].(*ui.Ball)
+		ball.X++
+		ball.Render()
 	case *tcell.EventKey:
-		if ev.Key() == tcell.KeyEscape || ev.Key() == tcell.KeyCtrlC {
+		if ev.Key() == tcell.KeyEscape ||
+			ev.Key() == tcell.KeyCtrlC {
 			return false
 		}
 		switch ev.Rune() {
@@ -45,7 +68,19 @@ func _loop(s1 tcell.Screen) bool {
 	return true
 }
 
+var logger *slog.Logger
+
 func main() {
+
+	file, err := os.OpenFile(
+		"logfile.json",
+		os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		panic(err)
+	}
+	logger = slog.New(slog.NewJSONHandler(file, nil))
+	defer file.Close()
+
 	s1 := scr.New()
 	defer s1.Fini()
 
@@ -73,12 +108,51 @@ func main() {
 	rbar := ui.NewVBar(s1, w-1, xpos, height)
 	rbar.Render()
 
+	playground := ui.NewPlayground(s1, 1, 1, w-2, h-2)
+	playground.Render()
+
+	ball := ui.NewBall(s1, playground, w/2, h/2)
+	ball.Render()
+
+	_model["playground"] = playground
+	_model["ball"] = ball
+
 	_model["lbar"] = lbar
 	_model["rbar"] = rbar
+
+	go _timerThread()
+
+	go func() {
+		for {
+			msg := s1.PollEvent()
+			_messages <- msg
+		}
+	}()
 
 	for {
 		if !_loop(s1) {
 			break
 		}
 	}
+}
+
+type TimerEvent struct {
+	Cycle int
+}
+
+func _timerThread() {
+	logger.Info("Starting timer thread")
+	tick := 0
+	ticker := time.NewTicker(100 * time.Millisecond)
+	for {
+		tick++
+		select {
+		case <-ticker.C:
+			_messages <- TimerEvent{Cycle: tick}
+		}
+	}
+}
+
+func (e TimerEvent) When() time.Time {
+	return time.Now()
 }

@@ -46,3 +46,15 @@
 
 - [x] let the user move the right bar using j/k keys
 
+# initialize "playground"
+
+- [x] add a playground area between the two vertical bars
+
+# ball
+
+- [x] add a "ball" in the middle of the screen
+- [ ] let the ball move
+
+
+
+

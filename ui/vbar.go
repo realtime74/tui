@@ -37,13 +37,15 @@ func (v *VBar) Up() {
 
 func (v *VBar) Render() {
 	bgstyle := tcell.StyleDefault.
-		Background(tcell.ColorBlack)
-	style := tcell.StyleDefault.
-		Background(tcell.ColorWhite)
+		Background(tcell.ColorBlack).
+		Foreground(tcell.ColorBlack)
+	fstyle := tcell.StyleDefault.
+		Background(tcell.ColorWhite).
+		Foreground(tcell.ColorWhite)
 
 	_, height := v.scr.Size()
 
 	scr.HFill(v.scr, v.X, 1, v.Y-1, ' ', bgstyle)
-	scr.HFill(v.scr, v.X, v.Y, v.H, ' ', style)
+	scr.HFill(v.scr, v.X, v.Y, v.H, ' ', fstyle)
 	scr.HFill(v.scr, v.X, v.Y+v.H, (height-1)-(v.Y+v.H), ' ', bgstyle)
 }
