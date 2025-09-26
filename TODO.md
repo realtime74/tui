@@ -53,8 +53,13 @@
 # ball
 
 - [x] add a "ball" in the middle of the screen
-- [ ] let the ball move
+- [x] let the ball move
+- [x] let the ball bounce of the x/y walls
 
+# ball vector movements
+
+- [] let the ball move in a vector (dx, dy)
+- [] add some randomness to the bounce
 
 
 

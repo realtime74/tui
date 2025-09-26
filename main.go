@@ -46,8 +46,7 @@ func _loop(s1 tcell.Screen) bool {
 			fmt.Sprintf("Tick: %d", ev.Cycle),
 			tcell.StyleDefault)
 		ball := _model["ball"].(*ui.Ball)
-		ball.X++
-		ball.Render()
+		ball.Move()
 	case *tcell.EventKey:
 		if ev.Key() == tcell.KeyEscape ||
 			ev.Key() == tcell.KeyCtrlC {

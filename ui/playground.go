@@ -7,16 +7,16 @@ import (
 
 type Playground struct {
 	scr        tcell.Screen
-	x, y, w, h int
+	X, Y, W, H int
 }
 
 func NewPlayground(scr tcell.Screen, x, y, w, h int) *Playground {
 	return &Playground{
 		scr: scr,
-		x:   x,
-		y:   y,
-		w:   w,
-		h:   h,
+		X:   x,
+		Y:   y,
+		W:   w,
+		H:   h,
 	}
 }
 
@@ -25,7 +25,7 @@ func (p *Playground) Render() {
 		Foreground(tcell.ColorBlack).
 		Background(tcell.ColorBlack)
 
-	for ii := 0; ii < p.h; ii++ {
-		scr.Fill(p.scr, p.x, p.y+ii, p.w, ' ', style)
+	for ii := 0; ii < p.H; ii++ {
+		scr.Fill(p.scr, p.X, p.Y+ii, p.W, ' ', style)
 	}
 }
