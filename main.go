@@ -6,6 +6,22 @@ import (
 	"github.com/realtime74/tui/ui"
 )
 
+type Component interface {
+	Render()
+}
+
+var _model = make(map[string]Component)
+
+func _down() {
+	bar := _model["rbar"].(*ui.VBar)
+	bar.Down()
+}
+
+func _up() {
+	bar := _model["rbar"].(*ui.VBar)
+	bar.Up()
+}
+
 func _loop(s1 tcell.Screen) bool {
 	s1.Show()
 	ev := s1.PollEvent()
@@ -15,6 +31,10 @@ func _loop(s1 tcell.Screen) bool {
 			return false
 		}
 		switch ev.Rune() {
+		case 'j', 'J':
+			_down()
+		case 'k', 'K':
+			_up()
 		case 'q', 'Q':
 			return false
 		}
@@ -52,6 +72,9 @@ func main() {
 
 	rbar := ui.NewVBar(s1, w-1, xpos, height)
 	rbar.Render()
+
+	_model["lbar"] = lbar
+	_model["rbar"] = rbar
 
 	for {
 		if !_loop(s1) {

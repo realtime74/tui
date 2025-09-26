@@ -2,4 +2,4 @@
 
 - Be right back in
 
-    ... <5 minutes
+    <1 minute(s)

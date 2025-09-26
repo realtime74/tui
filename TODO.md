@@ -36,12 +36,13 @@
 # footer bar
 
 - [x] Add a footer bar
-- [x] display the text "Press 'q' to quit" in the footer bar
-
+- [x] display the text 
+        "Press 'q' to quit"
+      in the footer bar
 
 # moving the bar
 
 > maybe you know where this is going :-)
 
-- [ ] let the user move the right bar using j/k keys
+- [x] let the user move the right bar using j/k keys
 
