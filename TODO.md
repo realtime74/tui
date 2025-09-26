@@ -25,4 +25,23 @@
 - [x] display the title "My TUI App" in the header bar
 - [x] let header text be centered
 
+# vertical bar
+
+- [x] create class "vbar" in `ui`
+- [x] draw a vertical bar of 10 lines on
+      the left side of the screen
+- [x] draw a vertical bar of 10 lines on
+      the right side of the screen
+
 # footer bar
+
+- [x] Add a footer bar
+- [x] display the text "Press 'q' to quit" in the footer bar
+
+
+# moving the bar
+
+> maybe you know where this is going :-)
+
+- [ ] let the user move the right bar using j/k keys
+

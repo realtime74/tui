@@ -1,12 +1,29 @@
 package main
 
 import (
-	"time"
-
 	"github.com/gdamore/tcell/v2"
 	"github.com/realtime74/tui/tools/scr"
 	"github.com/realtime74/tui/ui"
 )
+
+func _loop(s1 tcell.Screen) bool {
+	s1.Show()
+	ev := s1.PollEvent()
+	switch ev := ev.(type) {
+	case *tcell.EventKey:
+		if ev.Key() == tcell.KeyEscape || ev.Key() == tcell.KeyCtrlC {
+			return false
+		}
+		switch ev.Rune() {
+		case 'q', 'Q':
+			return false
+		}
+		return true
+	case *tcell.EventResize:
+		s1.Sync()
+	}
+	return true
+}
 
 func main() {
 	s1 := scr.New()
@@ -24,7 +41,21 @@ func main() {
 
 	header := ui.NewHBar(s1, 0, 0, w)
 	header.SetText("My TUI App")
+	status := ui.NewHBar(s1, 0, h-1, w)
+	status.SetText("ESC/q: quit  j/k: up/down")
 
-	s1.Show()
-	time.Sleep(5 * time.Second)
+	height := h/5 - 1
+	xpos := h/2 - height/2
+
+	lbar := ui.NewVBar(s1, 0, xpos, height)
+	lbar.Render()
+
+	rbar := ui.NewVBar(s1, w-1, xpos, height)
+	rbar.Render()
+
+	for {
+		if !_loop(s1) {
+			break
+		}
+	}
 }

@@ -28,6 +28,12 @@ func Fill(s tcell.Screen, x, y, w int, ch rune, style tcell.Style) {
 	}
 }
 
+func HFill(s tcell.Screen, x, y, h int, ch rune, style tcell.Style) {
+	for ii := 0; ii < h; ii++ {
+		s.SetContent(x, y+ii, ch, nil, style)
+	}
+}
+
 func DrawText(s tcell.Screen, x, y int, text string, style tcell.Style) {
 	for i, r := range text {
 		s.SetContent(x+i, y, r, nil, style)
