@@ -5,15 +5,15 @@ import (
 	"github.com/realtime74/tui/tools/scr"
 )
 
-type VBar struct {
+type HBar struct {
 	X, Y, W int
-	Text string
+	Text    string
 
-	scr  tcell.Screen
+	scr tcell.Screen
 }
 
-func NewVBar(scr tcell.Screen, x, y, w int) *VBar {
-	return &VBar{
+func NewHBar(scr tcell.Screen, x, y, w int) *HBar {
+	return &HBar{
 		X:    x,
 		Y:    y,
 		W:    w,
@@ -22,12 +22,12 @@ func NewVBar(scr tcell.Screen, x, y, w int) *VBar {
 	}
 }
 
-func (v *VBar) SetText(text string) {
+func (v *HBar) SetText(text string) {
 	v.Text = text
 	v._render()
 }
 
-func (v *VBar) _render() {
+func (v *HBar) _render() {
 	style := tcell.StyleDefault.
 		Foreground(tcell.ColorWhite).
 		Background(tcell.ColorBlue)

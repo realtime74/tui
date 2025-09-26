@@ -15,6 +15,9 @@
 - [x] move drawText() to `screen` helper lib
 - [x] move screen creation logic to `scr`
 
+- [x] move `tools/ui` to `ui`
+- [x] rename `vbar` to `hbar`
+
 # header bar
 
 - [x] create class "vbar" in `tools/ui`
