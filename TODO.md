@@ -11,10 +11,15 @@
 
 ## refactor
 
-- [ ] create a screen helper lib (tools/screen)
-- [ ] move drawText() to screen helper lib
+- [x] create a screen helper lib (`tools/scr`)
+- [x] move drawText() to `screen` helper lib
+- [x] move screen creation logic to `scr`
 
 # header bar
 
-- [ ] create a header bar at the top of the screen
+- [x] create class "vbar" in `tools/ui`
+- [x] create a header bar at the top of the screen
 - [ ] display the title "My TUI App" in the header bar
+- [ ] let header text be centered
+
+# footer bar
