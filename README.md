@@ -2,6 +2,6 @@
 
 ## Features
 
-- to be defined
+- I have a "header" bar and a "footer" bar
 
 
